@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    limits_systemd_service:
+      - name: 'rsyslog'
+        nofile: 65535
+        memlock: 'infinity'
+        nproc: 65535
+      - name: 'httpd'
+        nofile: 65535
+        memlock: 'infinity'
+        nproc: 65535
+  pre_tasks:
+    - name: Install test packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - "rsyslog"
+        - "httpd"
+    - name: Start services
+      systemd:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - "rsyslog"
+        - "httpd"
+  roles:
+    - role: ansible-role-limits

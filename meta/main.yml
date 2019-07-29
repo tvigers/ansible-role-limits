@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Timothy Vigers
+  description: Configures limits for services
+
+  license: Apache
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags: []
+
+dependencies: []

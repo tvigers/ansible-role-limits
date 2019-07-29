@@ -1,0 +1,22 @@
+---
+
+language: python
+python:
+  - "2.7"
+
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: limits
+
+  matrix:
+    - MOLECULE_DISTRO: centos7
+
+install:
+  # Install test dependencies.
+  - pip install -r requirements.txt
+
+script:
+  # Run tests.
+  - molecule test

@@ -1,0 +1,24 @@
+---
+# tasks file for ansible-role-limits
+
+- name: Create directory for additional system files
+  file:
+    dest: "/etc/systemd/system/{{ item['name'] }}.service.d/"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  loop: "{{ limits_systemd_service | flatten(levels=1) }}"
+  notify:
+    - "daemon reload"
+
+- name: Configure limits for service
+  template:
+    src: limits.conf.j2
+    dest: "/etc/systemd/system/{{ item['name'] }}.service.d/limits.conf"
+    mode: 0644
+    owner: root
+    group: root
+  loop: "{{ limits_systemd_service | flatten(levels=1) }}"
+  notify:
+    - "daemon reload"

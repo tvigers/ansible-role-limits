@@ -1,0 +1,10 @@
+[Service]
+{% if item['nofile'] is defined %}
+LimitNOFILE={{ item['nofile'] }}
+{% endif %}
+{% if item['memlock'] is defined %}
+LimitMEMLOCK={{ item['memlock'] }}
+{% endif %}
+{% if item['nproc'] is defined %}
+LimitNPROC={{ item['nproc'] }}
+{% endif %}
